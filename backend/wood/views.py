@@ -35,3 +35,21 @@ class WoodDelete(generics.DestroyAPIView):
     queryset = Wood.objects.all()
     serializer_class = WoodSerializer
     lookup_field = 'id'
+
+
+# Update View
+class WoodUpdate(generics.UpdateAPIView):
+    queryset = Wood.objects.all()
+    serializer_class = WoodSerializer
+    lookup_field = "id"
+
+    def post(self, request):
+        image = request.FILES.get('image')
+        data = request.data.copy()
+        data['image'] = image
+        woods_serializer = WoodSerializer(data=data)
+        if woods_serializer.is_valid():
+            woods_serializer.save()
+            return Response(woods_serializer.data, status.status.HTTP_201_CREATED)
+        else:
+            return Response(woods_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
