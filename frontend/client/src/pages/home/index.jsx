@@ -1,13 +1,26 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Typography} from "@mui/material"
-
-
 import Spacer from '../../components/Spacer'
-
 import forest from "../../assets/forest.jpg"
 import { ListWood } from './widgets/ListWood'
+import axios from "axios"
 
 export const Home = () => {
+    const [woodList, setWoodList] = useState(null)
+    const [responseStatus, setResponseStatus] = useState(null)
+
+    useEffect(() => {
+        const response = axios.get('http://127.0.0.1:8000/api/wood/')
+        .then(response => {
+            setWoodList(response.data)
+            setResponseStatus(response.status)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }, [responseStatus])
+
+
   return (
     <div>
         <Box sx={{
@@ -31,7 +44,7 @@ export const Home = () => {
         </Box>
         <Spacer />
 
-        <ListWood />
+        <ListWood woodList={woodList}/>
     </div>
   )
 }
