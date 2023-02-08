@@ -7,7 +7,6 @@ class Wood(models.Model):
     """
     A model for defining wood typess
     """
-
     name = models.CharField(max_length=254)
     type = models.CharField(max_length=254)
     description = models.TextField()
