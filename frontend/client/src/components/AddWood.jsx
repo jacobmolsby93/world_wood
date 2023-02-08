@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Box, Modal} from "@mui/material"
+import { Box, TextField, Button, Modal} from "@mui/material"
 
 import axios from "axios"
 
@@ -72,30 +72,27 @@ export const AddWood = ({ openAdd, handleCloseAdd}) => {
         <Box sx={style}>
         <form onSubmit={handleSubmit} method="POST">
             <div>
-                <label htmlFor="name">Name:</label>
-                <input type="text" name="name" value={data.name} onChange={handleChange} />
+                <TextField type="text" label="Name" fullWidth={true} name="name" value={data.name} onChange={handleChange} />
             </div>
             <div>
-                <label htmlFor="type">Type:</label>
-                <input type="text" name="type" value={data.type} onChange={handleChange} />
+                <TextField sx={{ marginTop: "1rem"}} type="text" label="Type" fullWidth={true} name="type" value={data.type} onChange={handleChange} />
             </div>
             <div>
-                <label htmlFor="description">Description:</label>
-                <textarea name="description" value={data.description} onChange={handleChange} />
+                <TextField sx={{ marginTop: "1rem"}} name="description" label="Description" rows={4} multiline fullWidth={true} value={data.description} onChange={handleChange} />
             </div>
             <div>
-                <label htmlFor="location">Location:</label>
-                <input type="text" name="location" value={data.location} onChange={handleChange} />
+                <TextField sx={{ marginTop: "1rem"}} type="text" label="Location" fullWidth={true} name="location" value={data.location} onChange={handleChange} />
             </div>
             <div>
-                <label htmlFor="price">Price:</label>
-                <input type="number" name="price" value={data.price} onChange={handleChange} />
+                <TextField sx={{ marginTop: "1rem"}} type="number" label="price" fullWidth={true} name="price" value={data.price} onChange={handleChange} />
             </div>
             <div>
                 <label htmlFor="image">Image:</label>
                 <input type="file" name="image" accept="image/png, image/jpeg" onChange={handleFileChange} />
             </div>
-            <button type="submit">Submit</button>
+            <Box display="flex" justifyContent="flex-end">
+                <Button variant="contained" color="success" type="submit">Submit</Button>
+            </Box>
             </form>
         </Box>
       </Modal>
