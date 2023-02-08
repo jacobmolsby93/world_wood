@@ -4,10 +4,15 @@ import Spacer from '../../components/Spacer'
 import forest from "../../assets/forest.jpg"
 import { ListWood } from './widgets/ListWood'
 import axios from "axios"
+import { AddWood } from '../../components/AddWood'
+import AddIcon from '@mui/icons-material/Add';
 
 export const Home = () => {
     const [woodList, setWoodList] = useState(null)
     const [responseStatus, setResponseStatus] = useState(null)
+    const [openAdd, setOpenAdd] = useState(false);
+    const handleOpenAdd = () => setOpenAdd(true);
+    const handleCloseAdd = () => setOpenAdd(false);
 
     useEffect(() => {
         const response = axios.get('http://127.0.0.1:8000/api/wood/')
@@ -18,7 +23,7 @@ export const Home = () => {
         .catch(error => {
             console.log(error)
         })
-    }, [responseStatus])
+    }, [responseStatus, openAdd])
 
 
   return (
@@ -44,7 +49,23 @@ export const Home = () => {
         </Box>
         <Spacer />
 
-        <ListWood woodList={woodList}/>
+        <Box position="relative">
+            <Box sx={absoluteBox}>
+                <AddIcon onClick={() => setOpenAdd(!openAdd)} />
+                <AddWood openAdd={openAdd} handleOpenAdd={handleOpenAdd} handleCloseAdd={handleCloseAdd}/>
+            </Box>
+            <ListWood woodList={woodList}/>
+        </Box>
     </div>
   )
+}
+
+
+const absoluteBox = {
+    position: "absolute",
+    right: "0",
+    top: "100px",
+    height: "50px",
+    width: "100px",
+    backgroundColor: "grey"
 }
